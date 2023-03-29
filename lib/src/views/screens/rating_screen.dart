@@ -1,15 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:driver_customer_app/src/controllers/ride_controller.dart';
 import 'package:driver_customer_app/src/models/ride.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../app_colors.dart';
+import '../../helper/assets.dart';
 import '../widgets/textfield_decoration.dart';
 
 class RatingScreen extends StatefulWidget {
   final Ride ride;
   const RatingScreen({
-    Key? key, required this.ride,
+    Key? key,
+    required this.ride,
   }) : super(key: key);
 
   @override
@@ -18,7 +21,6 @@ class RatingScreen extends StatefulWidget {
 
 class _RatingScreenState extends State<RatingScreen> {
   double? ratings;
-
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +90,41 @@ class _RatingScreenState extends State<RatingScreen> {
                   padding: const EdgeInsets.only(top: 25),
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        radius: 50,
+                      Container(
+                        height: 120,
+                        width: 120,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: AppColors.mainBlue, width: 3)),
+                        child: ClipOval(
+                            child: widget.ride.driver?.user?.picture != null &&
+                                    widget.ride.driver?.user?.picture!.id != ''
+                                ? CachedNetworkImage(
+                                    progressIndicatorBuilder:
+                                        (context, url, progress) => Center(
+                                      child: CircularProgressIndicator(
+                                        value: progress.progress,
+                                      ),
+                                    ),
+                                    imageUrl: widget
+                                            .ride.driver?.user?.picture!.url ??
+                                        "",
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(Assets.placeholderUser,
+                                    color: Theme.of(context).primaryColor,
+                                    height: 100,
+                                    width: 100,
+                                    fit: BoxFit.scaleDown)),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        'Mark Javed',
+                        widget.ride.driver?.user?.name ?? "",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
@@ -103,7 +132,7 @@ class _RatingScreenState extends State<RatingScreen> {
                         height: 10,
                       ),
                       Text(
-                        'mark@gmail.com',
+                        widget.ride.driver?.user?.email ?? "",
                         style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
                       ),
