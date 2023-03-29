@@ -70,7 +70,7 @@ class RouteGenerator {
         );
       case '/ratingScreen':
         return MaterialPageRoute(
-          builder: (context) => const RatingScreen(),
+          builder: (context) =>  RatingScreen(ride: argument!.arguments['ride'],),
         );
       case '/otpScreen':
         return MaterialPageRoute(

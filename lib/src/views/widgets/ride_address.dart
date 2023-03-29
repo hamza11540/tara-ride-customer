@@ -5,10 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
+import '../../controllers/ride_controller.dart';
 import '../../helper/dimensions.dart';
 import '../../helper/styles.dart';
 import '../../models/address.dart';
 import '../../models/ride.dart';
+import '../../models/screen_argument.dart';
 
 class RideAddressWidget extends StatefulWidget {
   final Ride ride;
@@ -32,7 +34,6 @@ class _RideAddressWidgetState extends State<RideAddressWidget> {
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColors.lightBlue3,
-
         borderRadius: BorderRadius.circular(20),
       ),
       child: conteudo,
@@ -117,10 +118,7 @@ class _RideAddressWidgetState extends State<RideAddressWidget> {
                 ),
                 decoration: BoxDecoration(
                   color: AppColors.mainBlue,
-                  border: Border.all(
-                    width: 1,
-                    color: AppColors.mainBlue
-                  ),
+                  border: Border.all(width: 1, color: AppColors.mainBlue),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: ListTile(
@@ -131,7 +129,10 @@ class _RideAddressWidgetState extends State<RideAddressWidget> {
                   leading: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(FontAwesomeIcons.locationArrow, color: AppColors.white,),
+                      Icon(
+                        FontAwesomeIcons.locationArrow,
+                        color: AppColors.white,
+                      ),
                     ],
                   ),
                   iconColor: Theme.of(context).primaryColor,
@@ -151,6 +152,30 @@ class _RideAddressWidgetState extends State<RideAddressWidget> {
             ),
           ),
         ),
+        InkWell(
+          onTap: () {
+            Navigator.of(context).pushReplacementNamed(
+              '/ratingScreen',
+              arguments: ScreenArgument({'ride': widget.ride}),
+            );
+          },
+          child: Container(
+              margin: EdgeInsets.all(10),
+              height: 60,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.mainBlue),
+              child: Center(
+                  child: Text(
+                "Add Rating/Feedback",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
+                ),
+              ))),
+        )
       ],
     );
   }

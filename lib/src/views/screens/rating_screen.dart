@@ -1,3 +1,5 @@
+import 'package:driver_customer_app/src/controllers/ride_controller.dart';
+import 'package:driver_customer_app/src/models/ride.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -5,8 +7,9 @@ import '../../../app_colors.dart';
 import '../widgets/textfield_decoration.dart';
 
 class RatingScreen extends StatefulWidget {
+  final Ride ride;
   const RatingScreen({
-    Key? key,
+    Key? key, required this.ride,
   }) : super(key: key);
 
   @override
@@ -15,6 +18,7 @@ class RatingScreen extends StatefulWidget {
 
 class _RatingScreenState extends State<RatingScreen> {
   double? ratings;
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,7 @@ class _RatingScreenState extends State<RatingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "\$ 100",
+                    "\$ ${widget.ride.amount}",
                     style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

@@ -275,7 +275,7 @@ class RideScreenState extends StateMVC<RideScreen> {
                             Lottie.asset("assets/img/85594-done.json",
                                 height: 120),
                             SizedBox(
-                              height: 275,
+                              height: 350,
                               child: RideAddressWidget(
                                 ride: _con.ride!,
                                 showHeader: false,
