@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:driver_customer_app/src/models/driver.dart';
 
+import '../models/generic_model.dart';
 import '../models/status_enum.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -264,6 +265,33 @@ Future<StatusEnum?> checkRideStatus(Ride ride) async {
 
   if (response.statusCode == HttpStatus.ok) {
     return StatusEnumHelper.enumFromString(json.decode(response.body)['data']);
+  } else {
+    CustomTrace(StackTrace.current, message: response.body);
+    throw Exception(response.statusCode);
+  }
+}
+
+
+
+Future<GenericModel> rating(String userId, String rideId, String driverId,
+    String ratings, String comment) async {
+  var response = await http
+      .post(Helper.getUri('customer_feedback/add'),
+      headers: <String, String>{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        "u_id": userId,
+        "d_id": driverId,
+        "r_id": rideId,
+        "rating": ratings,
+        "comment": comment,
+      }))
+      .timeout(const Duration(seconds: 15));
+  print('response ${response.body}');
+  if (response.statusCode == HttpStatus.ok) {
+    return GenericModel.fromJson(json.decode(response.body));
   } else {
     CustomTrace(StackTrace.current, message: response.body);
     throw Exception(response.statusCode);

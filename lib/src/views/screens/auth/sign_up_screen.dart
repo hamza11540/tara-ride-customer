@@ -356,7 +356,7 @@ class SignupScreenState extends StateMVC<SignupScreen> {
                           padding: const EdgeInsets.all(0),
                         ),
                         onPressed: loading
-                            ? () {}
+                            ? null
                             : () async {
                                 clearError();
                                 if (_formKey.currentState!.validate()) {

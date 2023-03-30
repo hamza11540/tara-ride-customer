@@ -15,8 +15,13 @@ import '../../models/screen_argument.dart';
 class RideAddressWidget extends StatefulWidget {
   final Ride ride;
   final bool showHeader;
+  final bool showRating;
 
-  RideAddressWidget({Key? key, required this.ride, this.showHeader = true})
+  RideAddressWidget(
+      {Key? key,
+      required this.ride,
+      this.showHeader = true,
+      this.showRating = true})
       : super(key: key);
 
   @override
@@ -152,30 +157,31 @@ class _RideAddressWidgetState extends State<RideAddressWidget> {
             ),
           ),
         ),
-        InkWell(
-          onTap: () {
-            Navigator.of(context).pushReplacementNamed(
-              '/ratingScreen',
-              arguments: ScreenArgument({'ride': widget.ride}),
-            );
-          },
-          child: Container(
-              margin: EdgeInsets.all(10),
-              height: 60,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: AppColors.mainBlue),
-              child: Center(
-                  child: Text(
-                "Add Rating/Feedback",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
-                ),
-              ))),
-        )
+        if (widget.showRating)
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                '/ratingScreen',
+                arguments: ScreenArgument({'ride': widget.ride}),
+              );
+            },
+            child: Container(
+                margin: EdgeInsets.all(10),
+                height: 60,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: AppColors.mainBlue),
+                child: Center(
+                    child: Text(
+                  "Add Rating/Feedback",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
+                  ),
+                ))),
+          )
       ],
     );
   }

@@ -47,7 +47,7 @@ class RouteGenerator {
       case '/Ride':
         return MaterialPageRoute(
           builder: (context) =>
-              RideScreen(rideId: argument!.arguments['rideId'] ?? ''),
+              RideScreen(rideId: argument!.arguments['rideId'] ?? '', showRating: argument.arguments['showRating'] ?? true ,),
         );
       case '/Chat':
         return MaterialPageRoute(

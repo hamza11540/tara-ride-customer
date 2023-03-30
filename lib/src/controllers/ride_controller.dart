@@ -26,7 +26,7 @@ class RideController extends ControllerMVC {
   bool loadingPreference = false;
   Map<String, dynamic>? preferenceId;
 
-  Future<void> doGetDriversAround(double lat, double lng) async {  
+  Future<void> doGetDriversAround(double lat, double lng) async {
     await getDriversAround(lat, lng).then((List<Driver> _drivers) async {
       setState(() {
         driversAround = _drivers;
@@ -195,6 +195,21 @@ class RideController extends ControllerMVC {
       return status;
     }).catchError((error) {
       print(CustomTrace(StackTrace.current, message: error.toString()));
+      throw error;
+    });
+  }
+
+  Future<void> doRating(String userId, String rideId, String driverId,
+      String ratings, String comment) async {
+    // setState(() => simulating = true);
+    await rating(userId, rideId, driverId, ratings, comment)
+        .then((value) async {
+      setState(() {
+        // simulation = _simulation;
+        //  simulating = false;
+      });
+    }).catchError((error) async {
+      //  setState(() => simulating = false);
       throw error;
     });
   }

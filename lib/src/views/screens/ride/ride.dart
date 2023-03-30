@@ -28,7 +28,8 @@ import 'package:lottie/lottie.dart';
 class RideScreen extends StatefulWidget {
   final String rideId;
   final bool showButtons;
-  const RideScreen({Key? key, required this.rideId, this.showButtons = true})
+  final bool showRating;
+  const RideScreen({Key? key, required this.rideId, this.showButtons = true, this.showRating = true})
       : super(key: key);
 
   @override
@@ -279,6 +280,7 @@ class RideScreenState extends StateMVC<RideScreen> {
                               child: RideAddressWidget(
                                 ride: _con.ride!,
                                 showHeader: false,
+                                showRating: widget.showRating,
                               ),
                             ),
                             Expanded(

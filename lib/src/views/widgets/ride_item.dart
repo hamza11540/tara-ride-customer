@@ -267,6 +267,7 @@ class _RideItemWidgetState extends State<RideItemWidget> {
                                 '/Ride',
                                 arguments: ScreenArgument({
                                   'rideId': widget.ride.id,
+                                  'showRating' : false,
                                 }),
                               ).then((value) {
                                 if (widget.loadPedidos != null) {
