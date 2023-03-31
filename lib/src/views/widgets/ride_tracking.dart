@@ -37,6 +37,7 @@ class RideTrackingWidgetState extends StateMVC<RideTrackingWidget> {
   Completer<GoogleMapController> _mapsController = Completer();
   bool locked = true;
   Timer? timer;
+  bool loading = false;
   Map<PolylineId, Polyline> polylines = {};
   late RideController _con;
   BitmapDescriptor icon = BitmapDescriptor.defaultMarkerWithHue(30);
@@ -226,7 +227,7 @@ class RideTrackingWidgetState extends StateMVC<RideTrackingWidget> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 30),
                 child: SizedBox(
-                  height: 250,
+                  height: 300,
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -264,15 +265,14 @@ class RideTrackingWidgetState extends StateMVC<RideTrackingWidget> {
                               Text(
                                 AppLocalizations.of(context)!.brand,
                                 style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.mainBlue),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.mainBlue),
                               ),
                               AutoSizeText(
                                 '${_con.ride?.driver?.brand ?? ''}',
-                                style: kTitleStyle.copyWith(
-                                    fontSize: 16),
+                                style: kTitleStyle.copyWith(fontSize: 16),
                                 maxLines: 1,
-
-
                               ),
                             ],
                           ),
@@ -282,12 +282,13 @@ class RideTrackingWidgetState extends StateMVC<RideTrackingWidget> {
                               Text(
                                 AppLocalizations.of(context)!.model,
                                 style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.mainBlue),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.mainBlue),
                               ),
                               AutoSizeText(
                                 '${_con.ride?.driver?.model ?? ''}',
-                                style: kTitleStyle.copyWith(
-                                    fontSize: 16),
+                                style: kTitleStyle.copyWith(fontSize: 16),
                                 maxLines: 1,
                               ),
                             ],
@@ -296,18 +297,43 @@ class RideTrackingWidgetState extends StateMVC<RideTrackingWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                            AppLocalizations.of(context)!.plate,
+                                AppLocalizations.of(context)!.plate,
                                 style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.mainBlue),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.mainBlue),
                               ),
                               AutoSizeText(
                                 '${_con.ride?.driver?.plate ?? ''}',
-                                style: kTitleStyle.copyWith(
-                                    fontSize: 16),
+                                style: kTitleStyle.copyWith(fontSize: 16),
                                 maxLines: 1,
                               ),
                             ],
                           ),
+                          InkWell(
+                              onTap: loading
+                                  ? null
+                                  : () {
+                                      setState(() => loading = true);
+                                      _con
+                                          .doFavouriteDriver(
+                                        widget.ride.driver!.user!.id,
+                                        widget.ride.driver!.id,
+                                        "1",
+                                      )
+                                          .then((value) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content:
+                                              Text("Driver Added to Favourite"),
+                                          backgroundColor: AppColors.mainBlue,
+                                        ));
+                                      });
+                                    },
+                              child: Text(
+                                "Add to favourite",
+                                style: TextStyle(fontSize: 12),
+                              ))
                         ],
                       ),
                     ),
@@ -331,7 +357,6 @@ class RideTrackingWidgetState extends StateMVC<RideTrackingWidget> {
                         child: Center(
                           child: Column(
                             children: [
-
                               AutoSizeText(
                                 AppLocalizations.of(context)!.rideInProgress,
                                 style: kTitleStyle.copyWith(

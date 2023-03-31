@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:driver_customer_app/src/models/driver.dart';
+import 'package:driver_customer_app/src/models/favoutite_location_model.dart';
 
 import '../models/generic_model.dart';
 import '../models/status_enum.dart';
@@ -271,23 +272,21 @@ Future<StatusEnum?> checkRideStatus(Ride ride) async {
   }
 }
 
-
-
 Future<GenericModel> rating(String userId, String rideId, String driverId,
     String ratings, String comment) async {
   var response = await http
       .post(Helper.getUri('customer_feedback/add'),
-      headers: <String, String>{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        "u_id": userId,
-        "d_id": driverId,
-        "r_id": rideId,
-        "rating": ratings,
-        "comment": comment,
-      }))
+          headers: <String, String>{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            "u_id": userId,
+            "d_id": driverId,
+            "r_id": rideId,
+            "rating": ratings,
+            "comment": comment,
+          }))
       .timeout(const Duration(seconds: 15));
   print('response ${response.body}');
   if (response.statusCode == HttpStatus.ok) {
@@ -297,3 +296,73 @@ Future<GenericModel> rating(String userId, String rideId, String driverId,
     throw Exception(response.statusCode);
   }
 }
+
+Future<GenericModel> favouriteLocation(
+    String userId, double latitude, double longitude, String address) async {
+  var response = await http
+      .post(Helper.getUri('fav_loc/add'),
+          headers: <String, String>{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            "u_id": userId,
+            "latitude": latitude,
+            "longitude": longitude,
+            "address": address,
+          }))
+      .timeout(const Duration(seconds: 15));
+  print('response ${response.body}');
+  if (response.statusCode == HttpStatus.ok) {
+    return GenericModel.fromJson(json.decode(response.body));
+  } else {
+    CustomTrace(StackTrace.current, message: response.body);
+    throw Exception(response.statusCode);
+  }
+}
+
+Future<GenericModel> favouriteDriver(
+    String userId, String driverId, String addToFav) async {
+  var response = await http
+      .post(Helper.getUri('fav_loc/add'),
+          headers: <String, String>{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            "u_id": userId,
+            "d_id": driverId,
+            "add_to_fav": addToFav,
+          }))
+      .timeout(const Duration(seconds: 15));
+  print('response ${response.body}');
+  if (response.statusCode == HttpStatus.ok) {
+    return GenericModel.fromJson(json.decode(response.body));
+  } else {
+    CustomTrace(StackTrace.current, message: response.body);
+    throw Exception(response.statusCode);
+  }
+}
+
+Future<FavouriteLocationModel> getFavouriteLocation() async {
+  try {
+    var response = await http
+        .get(Helper.getUri('fav_loc/'), headers: <String, String>{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
+    }).timeout(const Duration(seconds: 15));
+    print(response.request!.url.toString());
+    if (response.statusCode == HttpStatus.ok) {
+      return FavouriteLocationModel.fromJson(json.decode(response.body));
+    } else {
+      CustomTrace(StackTrace.current, message: response.body);
+      throw Exception(response.statusCode);
+    }
+  } catch (e, t) {
+    // print(CustomTrace(StackTrace.current, message: e.toString()));
+    print(t);
+    throw e;
+  }
+}
+
+

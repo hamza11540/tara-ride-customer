@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../controllers/ride_controller.dart';
 import '../../helper/dimensions.dart';
@@ -25,10 +26,15 @@ class RideAddressWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<RideAddressWidget> createState() => _RideAddressWidgetState();
+  _RideAddressWidgetState createState() => _RideAddressWidgetState();
 }
 
-class _RideAddressWidgetState extends State<RideAddressWidget> {
+class _RideAddressWidgetState extends StateMVC<RideAddressWidget> {
+  late RideController _con;
+  bool loading = false;
+  _RideAddressWidgetState() : super(RideController()) {
+    _con = controller as RideController;
+  }
   void openAddress(Address address) {
     MapsLauncher.launchCoordinates(address.latitude, address.longitude,
         address.name + ' - ' + (address.number ?? ''));
@@ -97,6 +103,26 @@ class _RideAddressWidgetState extends State<RideAddressWidget> {
                   ),
                 ),
               ),
+              trailing: IconButton(
+                  onPressed: loading
+                      ? null
+                      : () {
+                          setState(() => loading = true);
+                          _con
+                              .doFavouriteLocation(
+                                  widget.ride.driver!.user!.id,
+                                  widget.ride.destinationLocation!.latitude,
+                                  widget.ride.destinationLocation!.longitude,
+                                  widget.ride.destinationLocation!
+                                      .formattedAddress)
+                              .then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Location Added to Favourite"),
+                              backgroundColor: AppColors.mainBlue,
+                            ));
+                          });
+                        },
+                  icon: Icon(Icons.favorite_border)),
             ),
           ),
         ),
@@ -155,6 +181,29 @@ class _RideAddressWidgetState extends State<RideAddressWidget> {
                 ),
               ),
             ),
+            trailing: IconButton(
+                onPressed: loading
+                    ? null
+                    : () {
+                        setState(() => loading = true);
+                        _con
+                            .doFavouriteLocation(
+                                widget.ride.driver!.user!.id,
+                                widget.ride.destinationLocation!.latitude,
+                                widget.ride.destinationLocation!.longitude,
+                                widget
+                                    .ride.destinationLocation!.formattedAddress)
+                            .then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Location Added to Favourite"),
+                            backgroundColor: AppColors.mainBlue,
+                          ));
+                        });
+                      },
+                icon: Icon(
+                  Icons.favorite_border,
+                  color: AppColors.mainBlue,
+                )),
           ),
         ),
         if (widget.showRating)

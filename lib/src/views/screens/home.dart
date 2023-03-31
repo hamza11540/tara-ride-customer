@@ -533,7 +533,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           minHeight: 10,
                         ),
                         contentPadding: EdgeInsets.all(23),
-                        hintText: "PickUp Location",
+                        hintText: "Pickup Location",
                         hintStyle: TextStyle(
                             fontSize: 14,
                             color: Colors.grey,
@@ -675,6 +675,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                         )
                       else if (destination != null)
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             SizedBox(
                               height: 10,
@@ -825,6 +826,19 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 fontSize: 15,
                               ),
                             ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            InkWell(
+                                onTap: (){
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      "/favouriteLocation",
+                                          (Route<dynamic> route) => false);
+                                },
+
+
+                                child: Text("Favourite location"))
                           ],
                         ),
                     ],

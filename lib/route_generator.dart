@@ -1,4 +1,5 @@
 import 'package:driver_customer_app/src/views/screens/advance_booking_screen.dart';
+import 'package:driver_customer_app/src/views/screens/favourite_location_screen.dart';
 import 'package:driver_customer_app/src/views/screens/home.dart';
 import 'package:driver_customer_app/src/views/screens/otp_screen.dart';
 import 'package:driver_customer_app/src/views/screens/phone_number_screen.dart';
@@ -63,6 +64,10 @@ class RouteGenerator {
       case '/privacyPolicy':
         return MaterialPageRoute(
           builder: (context) => const PrivacyPolicyScreen(),
+        );
+        case '/favouriteLocation':
+        return MaterialPageRoute(
+          builder: (context) => const FavouriteDriverScreen(),
         );
       case '/advanceBooking':
         return MaterialPageRoute(
