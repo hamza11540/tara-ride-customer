@@ -2,6 +2,7 @@ import 'package:driver_customer_app/src/models/driver.dart';
 import 'package:driver_customer_app/src/models/favoutite_location_model.dart';
 import 'package:driver_customer_app/src/models/vehicle_type.dart';
 
+import '../models/favourite_driver_model.dart';
 import '../models/nearby_driver.dart';
 import '../models/ride_simulation.dart';
 import '../models/status_enum.dart';
@@ -26,6 +27,8 @@ class RideController extends ControllerMVC {
   Ride? ride;
   bool loadingPreference = false;
   Map<String, dynamic>? preferenceId;
+  FavouriteDriverModel? favDriver;
+  FavouriteLocationModel? favLocation;
 
   Future<void> doGetDriversAround(double lat, double lng) async {
     await getDriversAround(lat, lng).then((List<Driver> _drivers) async {
@@ -243,16 +246,27 @@ class RideController extends ControllerMVC {
     });
   }
 
-  Future<FavouriteLocationModel> doGetFavouritelocation() async {
+  Future<FavouriteLocationModel?> doGetFavouriteLocation() async {
     setState(() {
       loading = true;
     });
-    FavouriteLocationModel _favLocation =
-        await getFavouriteLocation().catchError((error) {
+    favLocation = await getFavouriteLocation().catchError((error) {
       print(CustomTrace(StackTrace.current, message: error.toString()));
       throw 'Erro ao buscar pedido, tente novamente';
     }).whenComplete(() => setState(() => loading = false));
 
-    return _favLocation;
+    return favLocation;
+  }
+
+  Future<FavouriteDriverModel?> doGetFavouriteDriver() async {
+    setState(() {
+      loading = true;
+    });
+    favDriver = await getFavouriteDriver().catchError((error) {
+      print(CustomTrace(StackTrace.current, message: error.toString()));
+      throw 'Erro ao buscar pedido, tente novamente';
+    }).whenComplete(() => setState(() => loading = false));
+
+    return favDriver;
   }
 }

@@ -829,16 +829,16 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            InkWell(
-                                onTap: (){
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      "/favouriteLocation",
-                                          (Route<dynamic> route) => false);
-                                },
-
-
-                                child: Text("Favourite location"))
+                            // InkWell(
+                            //     onTap: (){
+                            //       Navigator.pushNamedAndRemoveUntil(
+                            //           context,
+                            //           "/favouriteLocation",
+                            //               (Route<dynamic> route) => false);
+                            //     },
+                            //
+                            //
+                            //     child: Text("Favourite location"))
                           ],
                         ),
                     ],

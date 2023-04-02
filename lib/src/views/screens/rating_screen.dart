@@ -29,6 +29,8 @@ class _RatingScreenState extends StateMVC<RatingScreen> {
   _RatingScreenState() : super(RideController()) {
     _con = controller as RideController;
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Form(

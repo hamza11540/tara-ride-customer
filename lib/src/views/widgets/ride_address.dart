@@ -122,7 +122,7 @@ class _RideAddressWidgetState extends StateMVC<RideAddressWidget> {
                             ));
                           });
                         },
-                  icon: Icon(Icons.favorite_border)),
+                  icon: Icon(Icons.favorite_border, color: AppColors.mainBlue,)),
             ),
           ),
         ),
