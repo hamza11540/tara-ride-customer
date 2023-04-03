@@ -305,12 +305,12 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                                 bottomRight: Radius.circular(30))),
                         horizontalTitleGap: 0,
                         onTap: () {
-                          if (widget.onSwitchTab != null) {
-                            widget.onSwitchTab!('ratingScreen');
-                          } else {
+                          // if (widget.onSwitchTab != null) {
+                          //   widget.onSwitchTab!('ratingScreen');
+                          // } else {
                             Navigator.of(context)
-                                .pushReplacementNamed('/ratingScreen');
-                          }
+                                .pushReplacementNamed('/favouriteLocation');
+                          // }
                         },
                         leading: Icon(
                           Icons.rate_review,

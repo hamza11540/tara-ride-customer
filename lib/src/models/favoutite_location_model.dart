@@ -22,10 +22,10 @@ class FavouriteLocationModel {
 }
 
 class Data {
-  int? id;
-  int? uId;
-  double? latitude;
-  double? longitude;
+  num? id;
+  num? uId;
+  num? latitude;
+  num? longitude;
   String? address;
   String? createdAt;
   String? updatedAt;

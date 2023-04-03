@@ -17,18 +17,26 @@ class _FavouriteDriverScreenState extends StateMVC<FavouriteDriverScreen> {
   @override
   void initState() {
     super.initState();
-    _rideCon.doGetFavouriteLocation();
+    Future.microtask((){
+      _rideCon.doGetFavouriteLocation();
+      print("hello");
+
+    });
 
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: ListView.builder(
-      //     itemCount: _rideCon.favDriver?.data?.length,
-      //     itemBuilder: (context, index){
-      //   return Container();
-      // }),
+      body: _rideCon.loading?CircularProgressIndicator() :ListView.builder(
+          itemCount: _rideCon.favLocation?.data?.length,
+          itemBuilder: (BuildContext context, int index){
+            final favLocaction = _rideCon.favLocation?.data![index];
+        return Container(
+          child: Text(favLocaction?.address??""),
+
+        );
+      }),
     );
   }
 }
