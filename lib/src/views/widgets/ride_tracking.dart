@@ -310,6 +310,7 @@ class RideTrackingWidgetState extends StateMVC<RideTrackingWidget> {
                               ),
                             ],
                           ),
+                          SizedBox(height: 10,),
                           InkWell(
                               onTap: loading
                                   ? null
@@ -330,9 +331,20 @@ class RideTrackingWidgetState extends StateMVC<RideTrackingWidget> {
                                         ));
                                       });
                                     },
-                              child: Text(
-                                "Add to favourite",
-                                style: TextStyle(fontSize: 12),
+                              child: Container(
+                                margin: EdgeInsets.only(left: 16, right: 16),
+                                width: double.infinity,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppColors.mainBlue
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Add ${_con.ride?.driver?.user?.name} to favourite",
+                                    style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ))
                         ],
                       ),

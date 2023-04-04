@@ -130,6 +130,10 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                       padding:
                           const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                       child: CustomTextFormField(
+                        onTap: (){
+                          print("this is the token");
+                          print(_userCon.user.token);
+                        },
                           nextFocus: FocusNode(),
                           hintText: AppLocalizations.of(context)!.password,
                           labelText: AppLocalizations.of(context)!.password,
@@ -168,7 +172,10 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                           onPressed: loading
                               ? () {}
                               : () async {
+
                                   if (_formKey.currentState!.validate()) {
+                                    // print("this is the token");
+                                    // print(_userCon.user.token);
                                     _formKey.currentState!.save();
                                     setState(() => loading = true);
                                     await _userCon

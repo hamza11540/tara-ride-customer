@@ -133,7 +133,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
             ),
             actions: [
               Image.asset(
-                  'assets/img/eb669a40-feb6-47af-b97d-3e6571162c41-removebg-preview.png')
+                  'assets/img/WhatsApp Image 2023-04-01 at 3.05.47 AM.jpeg')
             ],
           ),
           drawer: Container(

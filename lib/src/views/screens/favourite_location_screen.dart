@@ -1,42 +1,89 @@
-import 'package:driver_customer_app/src/controllers/ride_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-class FavouriteDriverScreen extends StatefulWidget {
-  const FavouriteDriverScreen({Key? key}) : super(key: key);
+
+import '../../../app_colors.dart';
+import '../../controllers/ride_controller.dart';
+import '../widgets/menu.dart';
+
+class FavouriteLocationScreen extends StatefulWidget {
+  const FavouriteLocationScreen({Key? key}) : super(key: key);
 
   @override
-  _FavouriteDriverScreenState createState() => _FavouriteDriverScreenState();
+  _FavouriteLocationScreenState createState() =>
+      _FavouriteLocationScreenState();
 }
 
-class _FavouriteDriverScreenState extends StateMVC<FavouriteDriverScreen> {
+class _FavouriteLocationScreenState extends StateMVC<FavouriteLocationScreen> {
   late RideController _rideCon;
-  _FavouriteDriverScreenState() : super(RideController()) {
+  _FavouriteLocationScreenState() : super(RideController()) {
     _rideCon = controller as RideController;
   }
 
   @override
   void initState() {
     super.initState();
-    Future.microtask((){
+    Future.microtask(() {
       _rideCon.doGetFavouriteLocation();
       print("hello");
-
+      //print(_rideCon.favLocation?.data?.length);
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _rideCon.loading?CircularProgressIndicator() :ListView.builder(
-          itemCount: _rideCon.favLocation?.data?.length,
-          itemBuilder: (BuildContext context, int index){
-            final favLocaction = _rideCon.favLocation?.data![index];
-        return Container(
-          child: Text(favLocaction?.address??""),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: AppColors.mainBlue,
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
+        elevation: 1,
+        shadowColor: Theme.of(context).primaryColor,
+        title: Text("Favourite Location"),
+        centerTitle: true,
+      ),
+      drawer: Container(
+        width: MediaQuery.of(context).size.width * 0.75,
+        child: Drawer(
+          child: MenuWidget(),
+        ),
+      ),
+      body: _rideCon.loading
+          ? Center(
+              child: CircularProgressIndicator(
+              color: AppColors.mainBlue,
+            ))
+          : ListView.builder(
+              padding: EdgeInsets.only(left: 16, right: 16, top: 16),
 
-        );
-      }),
+              shrinkWrap: true,
+              itemCount: _rideCon.favLocation?.data?.length,
+              itemBuilder: (BuildContext context, int index) {
+                final favLocaction = _rideCon.favLocation?.data![index];
+                return Container(
+                  height: 80,
+                  width: MediaQuery.of(context).size.width,
+                  child: SingleChildScrollView(
+                    child: Card(
+                      color: Colors.grey.shade200,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 0,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: AppColors.mainBlue,
+                          child: Icon(
+                            Icons.location_on,
+                            color: Colors.white,
+                          ),
+                        ),
+                        title: Text(favLocaction?.address ?? "Lahore, Pakistan"),
+                      ),
+                    ),
+                  ),
+                );
+              }),
     );
   }
 }

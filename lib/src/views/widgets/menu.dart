@@ -227,6 +227,64 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                         ),
                       ),
                       SizedBox(height: 10),
+
+                      ListTile(
+                        tileColor: AppColors.mainBlue.withOpacity(0.5),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                bottomRight: Radius.circular(30))),
+                        horizontalTitleGap: 0,
+                        onTap: () {
+                          // if (widget.onSwitchTab != null) {
+                          //   widget.onSwitchTab!('ratingScreen');
+                          // } else {
+                          Navigator.of(context)
+                              .pushReplacementNamed('/favouriteLocation');
+                          // }
+                        },
+                        leading: Icon(
+                          Icons.location_on,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        title: Text(
+                          "Favourite Locations",
+                          style: rubikMedium.copyWith(
+                              fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                              color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+
+                      ListTile(
+                        tileColor: AppColors.mainBlue.withOpacity(0.5),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                bottomRight: Radius.circular(30))),
+                        horizontalTitleGap: 0,
+                        onTap: () {
+                          // if (widget.onSwitchTab != null) {
+                          //   widget.onSwitchTab!('ratingScreen');
+                          // } else {
+                          Navigator.of(context)
+                              .pushReplacementNamed('/favouriteDriver');
+                          // }
+                        },
+                        leading: Icon(
+                          Icons.drive_eta,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        title: Text(
+                          "Favourite Driver",
+                          style: rubikMedium.copyWith(
+                              fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                              color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(height: 10),
                       ListTile(
                         tileColor: AppColors.mainBlue.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
@@ -308,8 +366,8 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                           // if (widget.onSwitchTab != null) {
                           //   widget.onSwitchTab!('ratingScreen');
                           // } else {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/favouriteLocation');
+                          //   Navigator.of(context)
+                          //       .pushReplacementNamed('/favouriteLocation');
                           // }
                         },
                         leading: Icon(

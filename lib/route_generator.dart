@@ -1,3 +1,4 @@
+import 'package:driver_customer_app/src/views/favourite_driver_screen.dart';
 import 'package:driver_customer_app/src/views/screens/advance_booking_screen.dart';
 import 'package:driver_customer_app/src/views/screens/favourite_location_screen.dart';
 import 'package:driver_customer_app/src/views/screens/home.dart';
@@ -66,6 +67,10 @@ class RouteGenerator {
           builder: (context) => const PrivacyPolicyScreen(),
         );
         case '/favouriteLocation':
+        return MaterialPageRoute(
+          builder: (context) => const FavouriteLocationScreen(),
+        );
+      case '/favouriteDriver':
         return MaterialPageRoute(
           builder: (context) => const FavouriteDriverScreen(),
         );
