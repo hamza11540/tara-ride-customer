@@ -7,6 +7,7 @@ import 'package:driver_customer_app/src/views/screens/phone_number_screen.dart';
 import 'package:driver_customer_app/src/views/screens/privacy_policy_screen.dart';
 import 'package:driver_customer_app/src/views/screens/rating_screen.dart';
 import 'package:driver_customer_app/src/views/screens/ride/recent_rides_screen.dart';
+import 'package:driver_customer_app/src/views/screens/wallet_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'src/models/screen_argument.dart';
@@ -85,6 +86,10 @@ class RouteGenerator {
       case '/otpScreen':
         return MaterialPageRoute(
           builder: (context) =>  OtpScreen(),
+        );
+      case '/walletScreen':
+        return MaterialPageRoute(
+          builder: (context) =>  WalletScreen(),
         );
       default:
         return MaterialPageRoute(

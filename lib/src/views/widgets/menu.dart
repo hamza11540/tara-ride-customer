@@ -256,6 +256,34 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                         ),
                       ),
                       SizedBox(height: 10),
+                      ListTile(
+                        tileColor: AppColors.mainBlue.withOpacity(0.5),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                bottomRight: Radius.circular(30))),
+                        horizontalTitleGap: 0,
+                        onTap: () {
+                          // if (widget.onSwitchTab != null) {
+                          //   widget.onSwitchTab!('ratingScreen');
+                          // } else {
+                          Navigator.of(context)
+                              .pushReplacementNamed('/walletScreen');
+                          // }
+                        },
+                        leading: Icon(
+                          Icons.wallet,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        title: Text(
+                          "Wallet Transfer",
+                          style: rubikMedium.copyWith(
+                              fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                              color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(height: 10),
 
                       ListTile(
                         tileColor: AppColors.mainBlue.withOpacity(0.5),

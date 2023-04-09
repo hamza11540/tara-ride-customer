@@ -11,6 +11,7 @@ class User {
   String token;
   String firebaseToken;
   String? password;
+  num? wallet;
   Media? picture;
   List<CreateRideAddress> addresses;
 
@@ -23,6 +24,7 @@ class User {
     this.token = "",
     this.firebaseToken = "",
     this.phone = "",
+    this.wallet = 0,
     this.addresses = const [],
   });
 
@@ -32,6 +34,7 @@ class User {
         name = jsonMap['name'] ?? '',
         email = jsonMap['email'] ?? '',
         phone = jsonMap['phone'] ?? '',
+        wallet = jsonMap['wallet'] ?? '',
         token = jsonMap['api_token'] ?? '',
         firebaseToken = jsonMap['firebase_token'] ?? '',
         picture =

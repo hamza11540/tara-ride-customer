@@ -29,7 +29,11 @@ class RideScreen extends StatefulWidget {
   final String rideId;
   final bool showButtons;
   final bool showRating;
-  const RideScreen({Key? key, required this.rideId, this.showButtons = true, this.showRating = true})
+  const RideScreen(
+      {Key? key,
+      required this.rideId,
+      this.showButtons = true,
+      this.showRating = true})
       : super(key: key);
 
   @override
