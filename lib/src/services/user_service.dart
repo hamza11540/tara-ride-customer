@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../helper/custom_trace.dart';
 import '../helper/helper.dart';
+import '../models/generic_model.dart';
 import '../models/user.dart';
 
 Future<User> login(String email, String password, bool rememberMe) async {
@@ -175,3 +176,5 @@ Future<bool> deleteAccount() async {
     throw Exception(jsonDecode(response.body)['message'] ?? '');
   }
 }
+
+

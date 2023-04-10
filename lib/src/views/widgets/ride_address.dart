@@ -122,7 +122,10 @@ class _RideAddressWidgetState extends StateMVC<RideAddressWidget> {
                             ));
                           });
                         },
-                  icon: Icon(Icons.favorite_border, color: AppColors.mainBlue,)),
+                  icon: Icon(
+                    Icons.favorite_border,
+                    color: AppColors.mainBlue,
+                  )),
             ),
           ),
         ),
@@ -206,6 +209,37 @@ class _RideAddressWidgetState extends StateMVC<RideAddressWidget> {
                 )),
           ),
         ),
+
+        InkWell(
+          onTap: () {
+            Navigator.of(context).pushReplacementNamed('/walletScreen',
+                arguments: ScreenArgument({'rides': widget.ride}));
+          },
+          child: Container(
+              margin: EdgeInsets.all(10),
+              height: 60,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.mainBlue),
+              child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.payments_outlined, color: Colors.white,),
+                      SizedBox(width: 10,),
+                      Text(
+                        "Add Amount to Wallet",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                        ),
+                      ),
+                    ],
+                  ))),
+        ),
+
         if (widget.showRating)
           InkWell(
             onTap: () {

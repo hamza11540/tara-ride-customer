@@ -16,6 +16,7 @@ class UserController extends ControllerMVC {
   UserRepository userRepository = UserRepository();
   late User user;
 
+
   UserController() {
     scaffoldKey = GlobalKey<ScaffoldState>();
   }
@@ -170,4 +171,6 @@ class UserController extends ControllerMVC {
       throw error;
     });
   }
+
+
 }

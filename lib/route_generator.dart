@@ -89,7 +89,7 @@ class RouteGenerator {
         );
       case '/walletScreen':
         return MaterialPageRoute(
-          builder: (context) =>  WalletScreen(),
+          builder: (context) =>  WalletScreen(ride: argument!.arguments['rides'],),
         );
       default:
         return MaterialPageRoute(
