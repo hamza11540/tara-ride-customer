@@ -1,5 +1,6 @@
 import 'package:driver_customer_app/src/models/driver.dart';
 import 'package:driver_customer_app/src/models/favoutite_location_model.dart';
+import 'package:driver_customer_app/src/models/rating_model.dart';
 import 'package:driver_customer_app/src/models/vehicle_type.dart';
 
 import '../models/favourite_driver_model.dart';
@@ -29,6 +30,7 @@ class RideController extends ControllerMVC {
   Map<String, dynamic>? preferenceId;
   FavouriteDriverModel? favDriver;
   FavouriteLocationModel? favLocation;
+  RatingModel? ratingModel;
 
   Future<void> doGetDriversAround(double lat, double lng) async {
     await getDriversAround(lat, lng).then((List<Driver> _drivers) async {
@@ -258,6 +260,18 @@ class RideController extends ControllerMVC {
     return favLocation;
   }
 
+  Future<RatingModel?> doGetRating() async {
+    setState(() {
+      loading = true;
+    });
+    ratingModel = await getRating().catchError((error) {
+      print(CustomTrace(StackTrace.current, message: error.toString()));
+      throw 'Erro ao buscar pedido, tente novamente';
+    }).whenComplete(() => setState(() => loading = false));
+
+    return ratingModel;
+  }
+
   Future<FavouriteDriverModel?> doGetFavouriteDriver() async {
     setState(() {
       loading = true;
@@ -271,10 +285,10 @@ class RideController extends ControllerMVC {
   }
 
   Future<void> doWalletTransfer(
-      String senderId,
-      String recieverId,
-      String amount,
-      ) async {
+    String senderId,
+    String recieverId,
+    String amount,
+  ) async {
     // setState(() => simulating = true);
     await walletTransfer(
       senderId,

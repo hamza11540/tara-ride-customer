@@ -3,7 +3,9 @@ import 'package:driver_customer_app/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../../controllers/ride_controller.dart';
 import '../../helper/dimensions.dart';
 import '../../helper/styles.dart';
 import '../../models/measure_unit_enum.dart';
@@ -27,13 +29,21 @@ class RideItemWidget extends StatefulWidget {
   _RideItemWidgetState createState() => _RideItemWidgetState();
 }
 
-class _RideItemWidgetState extends State<RideItemWidget> {
+class _RideItemWidgetState extends StateMVC<RideItemWidget> {
   late bool expanded;
-
+  late RideController _rideCon;
+  _RideItemWidgetState() : super(RideController()) {
+    _rideCon = controller as RideController;
+  }
   @override
   void initState() {
     expanded = widget.expanded;
     super.initState();
+    Future.microtask(() {
+      _rideCon.doGetRating();
+      print("hello");
+      //print(_rideCon.favLocation?.data?.length);
+    });
   }
 
   @override
@@ -48,14 +58,14 @@ class _RideItemWidgetState extends State<RideItemWidget> {
               Container(
                 margin: EdgeInsets.only(top: 14),
                 decoration: BoxDecoration(
-
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Card(
                   color: AppColors.lightBlue3,
                   clipBehavior: Clip.antiAlias,
                   elevation: 0,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
                   child: ExpansionTile(
                     onExpansionChanged: (bool _expanded) {
                       setState(() => expanded = _expanded);
@@ -256,6 +266,54 @@ class _RideItemWidgetState extends State<RideItemWidget> {
                           ],
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Rating:',
+                              style: khulaBold.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.ride.destinationLocation!.name,
+                                textAlign: TextAlign.right,
+                                style: khulaRegular.copyWith(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 13,
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'FeedBack',
+                              style: khulaBold.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.ride.destinationLocation!.name,
+                                textAlign: TextAlign.right,
+                                style: khulaRegular.copyWith(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 13,
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       ButtonBar(
                         buttonPadding: EdgeInsets.zero,
                         alignment: MainAxisAlignment.end,
@@ -267,7 +325,7 @@ class _RideItemWidgetState extends State<RideItemWidget> {
                                 '/Ride',
                                 arguments: ScreenArgument({
                                   'rideId': widget.ride.id,
-                                  'showRating' : false,
+                                  'showRating': false,
                                 }),
                               ).then((value) {
                                 if (widget.loadPedidos != null) {

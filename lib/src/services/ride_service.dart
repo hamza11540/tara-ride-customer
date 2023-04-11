@@ -4,9 +4,11 @@ import 'dart:io';
 
 import 'package:driver_customer_app/src/models/driver.dart';
 import 'package:driver_customer_app/src/models/favoutite_location_model.dart';
+import 'package:driver_customer_app/src/views/screens/rating_screen.dart';
 
 import '../models/favourite_driver_model.dart';
 import '../models/generic_model.dart';
+import '../models/rating_model.dart';
 import '../models/status_enum.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -366,6 +368,27 @@ Future<FavouriteLocationModel> getFavouriteLocation() async {
   }
 }
 
+
+Future<RatingModel> getRating() async {
+  try {
+    var response = await http
+        .get(Helper.getUri('rating/'), headers: <String, String>{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
+    }).timeout(const Duration(seconds: 15));
+    print(response.request!.url.toString());
+    if (response.statusCode == HttpStatus.ok) {
+      return RatingModel.fromJson(json.decode(response.body));
+    } else {
+      CustomTrace(StackTrace.current, message: response.body);
+      throw Exception(response.statusCode);
+    }
+  } catch (e, t) {
+    // print(CustomTrace(StackTrace.current, message: e.toString()));
+    print(t);
+    throw e;
+  }
+}
 
 Future<FavouriteDriverModel> getFavouriteDriver() async {
   try {
