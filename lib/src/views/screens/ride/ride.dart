@@ -277,8 +277,7 @@ class RideScreenState extends StateMVC<RideScreen> {
                       ? RideTrackingWidget(key: trackingKey, ride: _con.ride!)
                       : Column(
                           children: [
-                            Lottie.asset("assets/img/85594-done.json",
-                                height: 120),
+
                             SizedBox(
                               height: 350,
                               child: RideAddressWidget(

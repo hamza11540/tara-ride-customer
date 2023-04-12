@@ -20,6 +20,8 @@ class Ride {
   String? observation;
   double distance;
   double amount;
+  double? rating;
+  String? feedback;
   double driverValue;
   double appValue;
   bool finalized;
@@ -29,7 +31,9 @@ class Ride {
   Ride({
     this.id = "",
     this.observation = "",
+    this.feedback = "",
     this.distance = 0.00,
+    this.rating = 0.00,
     this.amount = 0.00,
     this.driverValue = 0.00,
     this.appValue = 0.00,
@@ -66,11 +70,17 @@ class Ride {
         observation = jsonMap['status_observation'] != null
             ? jsonMap['status_observation']
             : null,
+        feedback = jsonMap['feedback'] != null
+            ? jsonMap['feedback']
+            : null,
         distance = jsonMap['distance'] != null
             ? double.parse(jsonMap['distance'].toString())
             : 0.00,
         amount = jsonMap['total_value'] != null
             ? double.parse(jsonMap['total_value'].toString())
+            : 0.00,
+        rating = jsonMap['rating'] != null
+            ? double.parse(jsonMap['rating'].toString())
             : 0.00,
         driverValue = jsonMap['driver_value'] != null
             ? double.parse(jsonMap['driver_value'].toString())
@@ -96,6 +106,8 @@ class Ride {
       'distance': distance,
       'observacao': observation,
       'valor_total': amount,
+      'feedback' : feedback,
+      'raring' : rating,
       'finalizado': finalized,
     };
   }

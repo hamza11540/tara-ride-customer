@@ -274,7 +274,7 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                               AppLocalizations.of(context)!.skipForNow,
                               textAlign: TextAlign.end,
                               style: rubikRegular.copyWith(
-                                color: Colors.lightBlue,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -289,7 +289,7 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                               AppLocalizations.of(context)!.forgetPassword,
                               textAlign: TextAlign.end,
                               style: poppinsRegular.copyWith(
-                                color: Colors.lightBlue,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -320,7 +320,7 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                       Text(
                         AppLocalizations.of(context)!.signUp,
                         style: poppinsRegular.copyWith(
-                          color: Colors.lightBlue,
+                          color: Colors.black,
                         ),
                       )
                     ],

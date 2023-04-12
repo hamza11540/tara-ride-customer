@@ -37,6 +37,7 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
   @override
   void initState() {
     super.initState();
+    _userCon.doGetRating();
   }
 
   @override
@@ -109,6 +110,7 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                         color: Theme.of(context).primaryColor),
                   ),
                 ),
+
                 Padding(
                   padding:
                       const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
@@ -120,6 +122,49 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                         color: Theme.of(context).primaryColor),
                   ),
                 ),
+                    Padding(
+                  padding:
+                      const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.black,
+                      ),
+                      Text(
+                        _userCon.ratings.toString(),
+                        style: TextStyle(
+                            fontFamily: 'Uber',
+                            fontSize: Dimensions.FONT_SIZE_LARGE,
+                            color: Theme.of(context).primaryColor),
+                      ),
+                    ],
+                  ),
+                ),
+                    Padding(
+                      padding:
+                      const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.payments_outlined,
+                            color: Colors.black,
+                          ),
+                          SizedBox(width: 5,),
+
+                          Text(
+                            "${currentUser.value.wallet}.0 \$",
+                            style: TextStyle(
+                                fontFamily: 'Uber',
+                                fontSize: Dimensions.FONT_SIZE_LARGE,
+                                color: Theme.of(context).primaryColor),
+                          ),
+                        ],
+                      ),
+                    ),
+
                 SizedBox(
                   height: 10,
                 ),

@@ -279,7 +279,7 @@ class _RideItemWidgetState extends StateMVC<RideItemWidget> {
                             ),
                             Expanded(
                               child: Text(
-                                widget.ride.destinationLocation!.name,
+                                widget.ride.rating == null?"0.0" :widget.ride.rating.toString(),
                                 textAlign: TextAlign.right,
                                 style: khulaRegular.copyWith(
                                     fontWeight: FontWeight.normal,
@@ -303,7 +303,7 @@ class _RideItemWidgetState extends StateMVC<RideItemWidget> {
                             ),
                             Expanded(
                               child: Text(
-                                widget.ride.destinationLocation!.name,
+                                widget.ride.feedback==null?"No feedback given" :widget.ride.feedback!,
                                 textAlign: TextAlign.right,
                                 style: khulaRegular.copyWith(
                                     fontWeight: FontWeight.normal,

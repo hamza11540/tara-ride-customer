@@ -443,7 +443,7 @@ class SignupScreenState extends StateMVC<SignupScreen> {
                       Text(
                         AppLocalizations.of(context)!.signIn,
                         style: poppinsRegular.copyWith(
-                          color: Colors.lightBlue,
+                          color: Colors.black,
                         ),
                       )
                     ],

@@ -2,8 +2,10 @@ import 'package:driver_customer_app/app_colors.dart';
 import 'package:driver_customer_app/src/controllers/ride_controller.dart';
 import 'package:driver_customer_app/src/controllers/user_controller.dart';
 import 'package:driver_customer_app/src/models/ride.dart';
+import 'package:driver_customer_app/src/repositories/user_repository.dart';
 import 'package:driver_customer_app/src/views/widgets/menu.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../widgets/textfield_decoration.dart';
@@ -51,14 +53,31 @@ class _WalletScreenState extends StateMVC<WalletScreen> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Image.asset('assets/img/y2020-11-19-65_generated-removebg-preview.png'),
+                Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    tileColor: AppColors.lightBlue3,
+                    title: Text(
+                      "Available Balance:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Text('${currentUser.value.wallet}.0 \$'),
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),
-
                 TextFormField(
                   controller: amount,
                   cursorColor: Colors.black,
@@ -67,6 +86,12 @@ class _WalletScreenState extends StateMVC<WalletScreen> {
                       hintText: "Amount",
                       hintTextStyle:
                           const TextStyle(color: Colors.grey, fontSize: 12)),
+                  validator: (text) {
+                    if (text == null) {
+                      return 'Field is required';
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(
                   height: 20,
@@ -80,18 +105,19 @@ class _WalletScreenState extends StateMVC<WalletScreen> {
                             setState(() => loading = true);
                             _con
                                 .doWalletTransfer(
-                              widget.ride.driver!.user!.id,
+                              currentUser.value.id,
                               widget.ride.driver!.id,
                               amount.text,
                             )
                                 .then((value) {
-                              Navigator.pushNamedAndRemoveUntil(context, "/Home",
-                                      (Route<dynamic> route) => false)
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                      "/Home", (Route<dynamic> route) => false)
                                   .catchError((onError) {
                                 setState(() => loading = false);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
-                                  content: Text("Amount not added Successfully"),
+                                  content:
+                                      Text("Amount not added Successfully"),
                                   backgroundColor: Theme.of(context).errorColor,
                                 ));
                               });

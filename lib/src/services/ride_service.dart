@@ -369,26 +369,7 @@ Future<FavouriteLocationModel> getFavouriteLocation() async {
 }
 
 
-Future<RatingModel> getRating() async {
-  try {
-    var response = await http
-        .get(Helper.getUri('rating/'), headers: <String, String>{
-      'Accept': 'application/json',
-      'Content-Type': 'application/json; charset=UTF-8',
-    }).timeout(const Duration(seconds: 15));
-    print(response.request!.url.toString());
-    if (response.statusCode == HttpStatus.ok) {
-      return RatingModel.fromJson(json.decode(response.body));
-    } else {
-      CustomTrace(StackTrace.current, message: response.body);
-      throw Exception(response.statusCode);
-    }
-  } catch (e, t) {
-    // print(CustomTrace(StackTrace.current, message: e.toString()));
-    print(t);
-    throw e;
-  }
-}
+
 
 Future<FavouriteDriverModel> getFavouriteDriver() async {
   try {
@@ -431,5 +412,26 @@ Future<GenericModel> walletTransfer(String senderId, String recieverId, String a
   } else {
     CustomTrace(StackTrace.current, message: response.body);
     throw Exception(response.statusCode);
+  }
+}
+
+Future<RatingModel> getRating() async {
+  try {
+    var response = await http
+        .get(Helper.getUri('customer_feedback/'), headers: <String, String>{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
+    }).timeout(const Duration(seconds: 15));
+    print(response.request!.url.toString());
+    if (response.statusCode == HttpStatus.ok) {
+      return RatingModel.fromJson(json.decode(response.body));
+    } else {
+      CustomTrace(StackTrace.current, message: response.body);
+      throw Exception(response.statusCode);
+    }
+  } catch (e, t) {
+    // print(CustomTrace(StackTrace.current, message: e.toString()));
+    print(t);
+    throw e;
   }
 }

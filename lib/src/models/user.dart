@@ -34,7 +34,7 @@ class User {
         name = jsonMap['name'] ?? '',
         email = jsonMap['email'] ?? '',
         phone = jsonMap['phone'] ?? '',
-        wallet = jsonMap['wallet'] ?? '',
+        wallet = jsonMap['wallet'] ?? 0,
         token = jsonMap['api_token'] ?? '',
         firebaseToken = jsonMap['firebase_token'] ?? '',
         picture =

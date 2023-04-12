@@ -131,10 +131,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
-            actions: [
-              Image.asset(
-                  'assets/img/WhatsApp Image 2023-04-01 at 3.05.47 AM.jpeg')
-            ],
+
           ),
           drawer: Container(
             width: MediaQuery.of(context).size.width * 0.75,
