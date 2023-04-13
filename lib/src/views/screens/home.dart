@@ -371,7 +371,10 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                             arguments: ScreenArgument({
                                               'rideId': id,
                                             }));
-                                      }).catchError((onError) {});
+                                      }).catchError((onError) {
+                                        print("this is the error");
+                                        print(onError);
+                                      });
                                       context.loaderOverlay.hide();
                                     }
                                   },

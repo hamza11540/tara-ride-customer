@@ -1,5 +1,6 @@
 import 'package:driver_customer_app/src/models/driver.dart';
 import 'package:driver_customer_app/src/models/favoutite_location_model.dart';
+import 'package:driver_customer_app/src/models/previous_ride_model.dart';
 import 'package:driver_customer_app/src/models/rating_model.dart';
 import 'package:driver_customer_app/src/models/vehicle_type.dart';
 
@@ -29,6 +30,7 @@ class RideController extends ControllerMVC {
   bool loadingPreference = false;
   Map<String, dynamic>? preferenceId;
   FavouriteDriverModel? favDriver;
+  PreviousRideModel? previousRideModel;
   FavouriteLocationModel? favLocation;
   RatingModel? ratingModel;
 
@@ -303,5 +305,17 @@ class RideController extends ControllerMVC {
       //  setState(() => simulating = false);
       throw error;
     });
+  }
+
+  Future<PreviousRideModel?> doGetPreviousRide() async {
+    setState(() {
+      loading = true;
+    });
+    previousRideModel = await getPreviousRide().catchError((error) {
+      print(CustomTrace(StackTrace.current, message: error.toString()));
+      throw 'Erro ao buscar pedido, tente novamente';
+    }).whenComplete(() => setState(() => loading = false));
+
+    return previousRideModel;
   }
 }

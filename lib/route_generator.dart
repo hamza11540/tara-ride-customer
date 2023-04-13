@@ -4,6 +4,7 @@ import 'package:driver_customer_app/src/views/screens/favourite_location_screen.
 import 'package:driver_customer_app/src/views/screens/home.dart';
 import 'package:driver_customer_app/src/views/screens/otp_screen.dart';
 import 'package:driver_customer_app/src/views/screens/phone_number_screen.dart';
+import 'package:driver_customer_app/src/views/screens/previous_ride_screen.dart';
 import 'package:driver_customer_app/src/views/screens/privacy_policy_screen.dart';
 import 'package:driver_customer_app/src/views/screens/rating_screen.dart';
 import 'package:driver_customer_app/src/views/screens/ride/recent_rides_screen.dart';
@@ -78,6 +79,10 @@ class RouteGenerator {
       case '/advanceBooking':
         return MaterialPageRoute(
           builder: (context) => const AdvanceBookingScreen(),
+        );
+      case '/previousRide':
+        return MaterialPageRoute(
+          builder: (context) => const PreviousRideScreen(),
         );
       case '/ratingScreen':
         return MaterialPageRoute(
