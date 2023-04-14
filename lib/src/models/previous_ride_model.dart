@@ -171,7 +171,7 @@ class BoardingLocationData {
     plusCode = json['plus_code'] != null
         ? new PlusCode.fromJson(json['plus_code'])
         : null;
-    types = json['types'].cast<String>();
+    //types = json['types'];
   }
 
   Map<String, dynamic> toJson() {
@@ -334,7 +334,7 @@ class DestinationLocationData {
         ? new Geometry.fromJson(json['geometry'])
         : null;
     placeId = json['place_id'];
-    types = json['types'].cast<String>();
+    //types = json['types'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {

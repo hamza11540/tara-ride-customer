@@ -1,3 +1,4 @@
+import 'package:driver_customer_app/src/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -22,8 +23,9 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      _rideCon.doGetPreviousRide();
+      _rideCon.doGetPreviousRide(currentUser.value.id);
       print("hello");
+
       //print(_rideCon.favLocation?.data?.length);
     });
   }

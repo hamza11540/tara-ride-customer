@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:driver_customer_app/src/models/driver.dart';
 import 'package:driver_customer_app/src/models/favoutite_location_model.dart';
 import 'package:driver_customer_app/src/models/previous_ride_model.dart';
+import 'package:driver_customer_app/src/repositories/user_repository.dart';
 import 'package:driver_customer_app/src/views/screens/rating_screen.dart';
 
 import '../models/favourite_driver_model.dart';
@@ -437,23 +438,32 @@ Future<RatingModel> getRating() async {
   }
 }
 
-Future<PreviousRideResponse> getPreviousRide() async {
+Future<PreviousRideResponse> getPreviousRide(String userId) async {
   try {
     var response = await http
-        .get(Helper.getUri('rides/previous_rerides'), headers: <String, String>{
+        .get(Helper.getUri('rides/previous_rerides',addApiToken: true, queryParam: {'uid': userId} ), headers: <String, String>{
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
+     // 'Authorization' : 'Bearer ${currentUser.value.token}'
     }).timeout(const Duration(seconds: 15));
     print(response.body.toString());
+    print('rides/previous_rerides?uid=${userId}');
+
 
     if (response.statusCode == HttpStatus.ok) {
+
       return PreviousRideResponse.fromJson(json.decode(response.body));
     } else {
-      CustomTrace(StackTrace.current, message: response.body);
+    final c =   CustomTrace(StackTrace.current, message: response.statusCode.toString());
+      print(c);
+      print("this is the error");
+
       throw Exception(response.statusCode);
+
     }
   } catch (e, t) {
-    // print(CustomTrace(StackTrace.current, message: e.toString()));
+     print(CustomTrace(StackTrace.current, message: e.toString()));
+     print("this is the error");
     print(t);
     throw e;
   }

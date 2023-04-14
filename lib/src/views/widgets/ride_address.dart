@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:driver_customer_app/app_colors.dart';
+import 'package:driver_customer_app/src/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -91,7 +92,7 @@ class _RideAddressWidgetState extends StateMVC<RideAddressWidget> {
                   maxWidth: MediaQuery.of(context).size.width * 0.55,
                 ),
                 child: AutoSizeText(
-                  ((widget.ride.boardingLocation?.formattedAddress) ?? '') +
+                  ((currentUser.value.id) ?? '') +
                       ' - ' +
                       (widget.ride.boardingLocation?.number ?? ''),
                   minFontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,

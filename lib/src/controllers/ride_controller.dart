@@ -307,11 +307,11 @@ class RideController extends ControllerMVC {
     });
   }
 
-  Future<PreviousRideResponse?> doGetPreviousRide() async {
+  Future<PreviousRideResponse?> doGetPreviousRide(String userId,) async {
     setState(() {
       loading = true;
     });
-    previousRideModel = await getPreviousRide().catchError((error) {
+    previousRideModel = await getPreviousRide(userId).catchError((error) {
       print(CustomTrace(StackTrace.current, message: error.toString()));
       throw 'Error';
     }).whenComplete(() => setState(() => loading = false));
