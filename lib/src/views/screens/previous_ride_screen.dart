@@ -4,6 +4,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../app_colors.dart';
 import '../../controllers/ride_controller.dart';
 import '../widgets/menu.dart';
+
 class PreviousRideScreen extends StatefulWidget {
   const PreviousRideScreen({Key? key}) : super(key: key);
 
@@ -39,7 +40,6 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
         elevation: 1,
         shadowColor: Theme.of(context).primaryColor,
         title: Text("Recurring Rides"),
-
       ),
       drawer: Container(
         width: MediaQuery.of(context).size.width * 0.75,
@@ -49,39 +49,40 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
       ),
       body: _rideCon.loading
           ? Center(
-          child: CircularProgressIndicator(
-            color: AppColors.mainBlue,
-          ))
-          : ListView.builder(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 16),
-
-          shrinkWrap: true,
-          itemCount: _rideCon.previousRideModel?.boardingLocationData?.addressComponents?.length,
-          itemBuilder: (BuildContext context, int index) {
-            final favLocaction = _rideCon.previousRideModel?.boardingLocationData?.addressComponents![index];
-            return Container(
-              height: 80,
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                child: Card(
-                  color: Colors.grey.shade200,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  elevation: 0,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: AppColors.mainBlue,
-                      child: Icon(
-                        Icons.location_on,
-                        color: Colors.white,
+              child: CircularProgressIndicator(
+              color: AppColors.mainBlue,
+            ))
+          : _rideCon.previousRideModel?.previousRide == null || _rideCon.previousRideModel!.previousRide!.isEmpty ?Center(child: Text("No previous ride found")) :ListView.builder(
+              padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+              shrinkWrap: true,
+              itemCount: _rideCon.previousRideModel?.previousRide?.length,
+              itemBuilder: (BuildContext context, int index) {
+                final favLocaction =
+                    _rideCon.previousRideModel?.previousRide![index];
+                return Container(
+                  height: 80,
+                  width: MediaQuery.of(context).size.width,
+                  child: SingleChildScrollView(
+                    child: Card(
+                      color: Colors.grey.shade200,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 0,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: AppColors.mainBlue,
+                          child: Icon(
+                            Icons.location_on,
+                            color: Colors.white,
+                          ),
+                        ),
+                        title:
+                            Text(favLocaction?.boardingLocation??"hello"),
                       ),
                     ),
-                    title: Text(favLocaction?.longName ?? "Lahore, Pakistan"),
                   ),
-                ),
-              ),
-            );
-          }),
+                );
+              }),
     );
   }
 }

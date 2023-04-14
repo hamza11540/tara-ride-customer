@@ -1,3 +1,16 @@
+class PreviousRideResponse {
+  List<PreviousRideModel>? previousRide;
+  PreviousRideResponse.fromJson(Iterable json) {
+    previousRide = [];
+    print("this is the length");
+    print(json.length);
+
+    json.forEach((element) {
+      previousRide!.add(PreviousRideModel.fromJson(element));
+    });
+  }
+}
+
 class PreviousRideModel {
   int? id;
   int? userId;
@@ -28,31 +41,31 @@ class PreviousRideModel {
 
   PreviousRideModel(
       {this.id,
-        this.userId,
-        this.vehicleTypeId,
-        this.driverId,
-        this.boardingLocation,
-        this.boardingLocationData,
-        this.saveBoardingLocationForNextRide,
-        this.destinationLocationData,
-        this.distance,
-        this.driverValue,
-        this.appValue,
-        this.totalValue,
-        this.customerObservation,
-        this.offlinePaymentMethodId,
-        this.paymentGateway,
-        this.gatewayOrderId,
-        this.gatewayId,
-        this.paymentStatus,
-        this.paymentStatusDate,
-        this.rideStatus,
-        this.rideStatusDate,
-        this.statusObservation,
-        this.driverAssignedDate,
-        this.assignedDrivers,
-        this.createdAt,
-        this.updatedAt});
+      this.userId,
+      this.vehicleTypeId,
+      this.driverId,
+      this.boardingLocation,
+      this.boardingLocationData,
+      this.saveBoardingLocationForNextRide,
+      this.destinationLocationData,
+      this.distance,
+      this.driverValue,
+      this.appValue,
+      this.totalValue,
+      this.customerObservation,
+      this.offlinePaymentMethodId,
+      this.paymentGateway,
+      this.gatewayOrderId,
+      this.gatewayId,
+      this.paymentStatus,
+      this.paymentStatusDate,
+      this.rideStatus,
+      this.rideStatusDate,
+      this.statusObservation,
+      this.driverAssignedDate,
+      this.assignedDrivers,
+      this.createdAt,
+      this.updatedAt});
 
   PreviousRideModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -64,10 +77,10 @@ class PreviousRideModel {
         ? new BoardingLocationData.fromJson(json['boarding_location_data'])
         : null;
     saveBoardingLocationForNextRide =
-    json['save_boarding_location_for_next_ride'];
+        json['save_boarding_location_for_next_ride'];
     destinationLocationData = json['destination_location_data'] != null
         ? new DestinationLocationData.fromJson(
-        json['destination_location_data'])
+            json['destination_location_data'])
         : null;
     distance = json['distance'];
     driverValue = json['driver_value'];
@@ -137,11 +150,11 @@ class BoardingLocationData {
 
   BoardingLocationData(
       {this.addressComponents,
-        this.formattedAddress,
-        this.geometry,
-        this.placeId,
-        this.plusCode,
-        this.types});
+      this.formattedAddress,
+      this.geometry,
+      this.placeId,
+      this.plusCode,
+      this.types});
 
   BoardingLocationData.fromJson(Map<String, dynamic> json) {
     if (json['address_components'] != null) {
@@ -304,10 +317,10 @@ class DestinationLocationData {
 
   DestinationLocationData(
       {this.addressComponents,
-        this.formattedAddress,
-        this.geometry,
-        this.placeId,
-        this.types});
+      this.formattedAddress,
+      this.geometry,
+      this.placeId,
+      this.types});
 
   DestinationLocationData.fromJson(Map<String, dynamic> json) {
     if (json['address_components'] != null) {

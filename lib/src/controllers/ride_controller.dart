@@ -30,7 +30,7 @@ class RideController extends ControllerMVC {
   bool loadingPreference = false;
   Map<String, dynamic>? preferenceId;
   FavouriteDriverModel? favDriver;
-  PreviousRideModel? previousRideModel;
+  PreviousRideResponse? previousRideModel;
   FavouriteLocationModel? favLocation;
   RatingModel? ratingModel;
 
@@ -307,13 +307,13 @@ class RideController extends ControllerMVC {
     });
   }
 
-  Future<PreviousRideModel?> doGetPreviousRide() async {
+  Future<PreviousRideResponse?> doGetPreviousRide() async {
     setState(() {
       loading = true;
     });
     previousRideModel = await getPreviousRide().catchError((error) {
       print(CustomTrace(StackTrace.current, message: error.toString()));
-      throw 'Erro ao buscar pedido, tente novamente';
+      throw 'Error';
     }).whenComplete(() => setState(() => loading = false));
 
     return previousRideModel;

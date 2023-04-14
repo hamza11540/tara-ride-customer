@@ -437,16 +437,17 @@ Future<RatingModel> getRating() async {
   }
 }
 
-Future<PreviousRideModel> getPreviousRide() async {
+Future<PreviousRideResponse> getPreviousRide() async {
   try {
     var response = await http
         .get(Helper.getUri('rides/previous_rerides'), headers: <String, String>{
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
     }).timeout(const Duration(seconds: 15));
-    print(response.request!.url.toString());
+    print(response.body.toString());
+
     if (response.statusCode == HttpStatus.ok) {
-      return PreviousRideModel.fromJson(json.decode(response.body));
+      return PreviousRideResponse.fromJson(json.decode(response.body));
     } else {
       CustomTrace(StackTrace.current, message: response.body);
       throw Exception(response.statusCode);
