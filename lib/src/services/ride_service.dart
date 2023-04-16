@@ -351,8 +351,8 @@ Future<GenericModel> favouriteDriver(
 
 Future<FavouriteLocationModel> getFavouriteLocation() async {
   try {
-    var response = await http
-        .get(Helper.getUri('fav_loc/'), headers: <String, String>{
+    var response =
+        await http.get(Helper.getUri('fav_loc/'), headers: <String, String>{
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
     }).timeout(const Duration(seconds: 15));
@@ -370,13 +370,10 @@ Future<FavouriteLocationModel> getFavouriteLocation() async {
   }
 }
 
-
-
-
 Future<FavouriteDriverModel> getFavouriteDriver() async {
   try {
-    var response = await http
-        .get(Helper.getUri('driver_loc/'), headers: <String, String>{
+    var response =
+        await http.get(Helper.getUri('driver_loc/'), headers: <String, String>{
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
     }).timeout(const Duration(seconds: 15));
@@ -394,19 +391,22 @@ Future<FavouriteDriverModel> getFavouriteDriver() async {
   }
 }
 
-Future<GenericModel> walletTransfer(String senderId, String recieverId, String amount,) async {
+Future<GenericModel> walletTransfer(
+  String senderId,
+  String recieverId,
+  String amount,
+) async {
   var response = await http
       .post(Helper.getUri('wallet_transfer/add'),
-      headers: <String, String>{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        "sender_id": senderId,
-        "reciever_id": recieverId,
-        "amount": amount,
-
-      }))
+          headers: <String, String>{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            "sender_id": senderId,
+            "reciever_id": recieverId,
+            "amount": amount,
+          }))
       .timeout(const Duration(seconds: 15));
   print('response ${response.body}');
   if (response.statusCode == HttpStatus.ok) {
@@ -440,30 +440,61 @@ Future<RatingModel> getRating() async {
 
 Future<PreviousRideResponse> getPreviousRide(String userId) async {
   try {
-    var response = await http
-        .get(Helper.getUri('rides/previous_rerides',addApiToken: true, queryParam: {'uid': userId} ), headers: <String, String>{
-      'Accept': 'application/json',
-      'Content-Type': 'application/json; charset=UTF-8',
-     // 'Authorization' : 'Bearer ${currentUser.value.token}'
-    }).timeout(const Duration(seconds: 15));
+    var response = await http.get(
+        Helper.getUri('rides/previous_rerides',
+            addApiToken: true, queryParam: {'uid': userId}),
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization' : 'Bearer ${currentUser.value.token}'
+        }).timeout(const Duration(seconds: 15));
     print(response.body.toString());
     print('rides/previous_rerides?uid=${userId}');
 
-
     if (response.statusCode == HttpStatus.ok) {
-
       return PreviousRideResponse.fromJson(json.decode(response.body));
     } else {
-    final c =   CustomTrace(StackTrace.current, message: response.statusCode.toString());
+      final c = CustomTrace(StackTrace.current,
+          message: response.statusCode.toString());
       print(c);
       print("this is the error");
 
       throw Exception(response.statusCode);
-
     }
   } catch (e, t) {
-     print(CustomTrace(StackTrace.current, message: e.toString()));
-     print("this is the error");
+    print(CustomTrace(StackTrace.current, message: e.toString()));
+    print("this is the error");
+    print(t);
+    throw e;
+  }
+}
+
+Future<PreviousRideResponse> getAllRide(String userId) async {
+  try {
+    var response = await http.get(
+        Helper.getUri('rides/previous_rerides/all',
+            addApiToken: true, queryParam: {'uid': userId}),
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization' : 'Bearer ${currentUser.value.token}'
+        }).timeout(const Duration(seconds: 15));
+    print(response.body.toString());
+    print('rides/previous_rerides?uid=${userId}');
+
+    if (response.statusCode == HttpStatus.ok) {
+      return PreviousRideResponse.fromJson(json.decode(response.body));
+    } else {
+      final c = CustomTrace(StackTrace.current,
+          message: response.statusCode.toString());
+      print(c);
+      print("this is the error");
+
+      throw Exception(response.statusCode);
+    }
+  } catch (e, t) {
+    print(CustomTrace(StackTrace.current, message: e.toString()));
+    print("this is the error");
     print(t);
     throw e;
   }

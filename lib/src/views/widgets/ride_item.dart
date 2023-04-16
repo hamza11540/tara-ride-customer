@@ -294,8 +294,24 @@ class _RideItemWidgetState extends StateMVC<RideItemWidget> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 10),
                         child: Row(
-                            children: _rideCon.ratingModel!.data!.map((quote) => Text('${quote.rating} '
-                                '- ${quote.rating}')).toList()
+                          children: <Widget>[
+                            Text(
+                              'Feedback:',
+                              style: khulaBold.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.ride.feedback == null?"No Feedback added" :widget.ride.feedback.toString(),
+                                textAlign: TextAlign.right,
+                                style: khulaRegular.copyWith(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 13,
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       ButtonBar(

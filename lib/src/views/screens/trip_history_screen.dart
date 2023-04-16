@@ -1,27 +1,27 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:driver_customer_app/src/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
+
 import '../../../app_colors.dart';
 import '../../controllers/ride_controller.dart';
 import '../../helper/dimensions.dart';
 import '../../helper/styles.dart';
 import '../../models/measure_unit_enum.dart';
-import '../../models/payment_gateway_enum.dart';
-import '../../models/status_enum.dart';
+import '../../models/screen_argument.dart';
 import '../../repositories/setting_repository.dart';
+import '../../repositories/user_repository.dart';
 import '../widgets/menu.dart';
-import 'package:intl/intl.dart' as intl;
 
-class PreviousRideScreen extends StatefulWidget {
-  const PreviousRideScreen({Key? key}) : super(key: key);
+class TripHistory extends StatefulWidget {
+  const TripHistory({Key? key}) : super(key: key);
 
   @override
-  _PreviousRideScreenState createState() => _PreviousRideScreenState();
+  _TripHistoryState createState() => _TripHistoryState();
 }
 
-class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
+class _TripHistoryState extends StateMVC<TripHistory> {
   String dateTimeConverstion(String? createdAt) {
     if (createdAt == null) {
       return "-";
@@ -31,7 +31,7 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
   }
 
   late RideController _rideCon;
-  _PreviousRideScreenState() : super(RideController()) {
+  _TripHistoryState() : super(RideController()) {
     _rideCon = controller as RideController;
   }
   late bool expanded;
@@ -40,7 +40,7 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      _rideCon.doGetPreviousRide(currentUser.value.id);
+      _rideCon.doGetAllRide(currentUser.value.id);
       print("hello");
 
       //print(_rideCon.favLocation?.data?.length);
@@ -58,7 +58,7 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
         ),
         elevation: 1,
         shadowColor: Theme.of(context).primaryColor,
-        title: Text("Recurring Rides"),
+        title: Text("Recent Rides"),
       ),
       drawer: Container(
         width: MediaQuery.of(context).size.width * 0.75,
@@ -110,7 +110,8 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
                                           children: [
                                             Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   dateTimeConverstion(
@@ -135,7 +136,44 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: 12,),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Payment Method: ',
+                                                  style: khulaBold.copyWith(
+                                                      fontSize: Dimensions
+                                                          .FONT_SIZE_DEFAULT,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
+                                                ),
+                                                Expanded(
+                                                  child: Transform.translate(
+                                                    offset:
+                                                        const Offset(25, 0.0),
+                                                    child: AutoSizeText(
+                                                      "Cash",
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                      maxLines: 1,
+                                                      minFontSize: Dimensions
+                                                          .FONT_SIZE_DEFAULT,
+                                                      maxFontSize: Dimensions
+                                                          .FONT_SIZE_DEFAULT,
+                                                      style: khulaBold.copyWith(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .primaryColor),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
                                             Row(
                                               children: [
                                                 Text(
@@ -148,24 +186,31 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
                                                 ),
                                                 Expanded(
                                                   child: Transform.translate(
-                                                    offset: const Offset(25, 0.0),
+                                                    offset:
+                                                        const Offset(25, 0.0),
                                                     child: AutoSizeText(
-                                                   recurringRide?.boardingLocation??"",
-                                                      textAlign: TextAlign.right,
+                                                      recurringRide
+                                                              ?.boardingLocation ??
+                                                          "",
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       maxLines: 1,
                                                       minFontSize: Dimensions
                                                           .FONT_SIZE_DEFAULT,
                                                       maxFontSize: Dimensions
                                                           .FONT_SIZE_DEFAULT,
                                                       style: khulaBold.copyWith(
-                                                          color: Theme.of(context)
+                                                          color: Theme.of(
+                                                                  context)
                                                               .primaryColor),
                                                     ),
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: 12,),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
                                             Row(
                                               children: [
                                                 Text(
@@ -178,24 +223,32 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
                                                 ),
                                                 Expanded(
                                                   child: Transform.translate(
-                                                    offset: const Offset(25, 0.0),
+                                                    offset:
+                                                        const Offset(25, 0.0),
                                                     child: AutoSizeText(
-                                                      recurringRide?.destinationLocationData?.formattedAddress??"",
-                                                      textAlign: TextAlign.right,
+                                                      recurringRide
+                                                              ?.destinationLocationData
+                                                              ?.formattedAddress ??
+                                                          "",
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       maxLines: 1,
                                                       minFontSize: Dimensions
                                                           .FONT_SIZE_DEFAULT,
                                                       maxFontSize: Dimensions
                                                           .FONT_SIZE_DEFAULT,
                                                       style: khulaBold.copyWith(
-                                                          color: Theme.of(context)
+                                                          color: Theme.of(
+                                                                  context)
                                                               .primaryColor),
                                                     ),
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: 12,),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
                                             Row(
                                               children: [
                                                 Text(
@@ -208,24 +261,29 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
                                                 ),
                                                 Expanded(
                                                   child: Transform.translate(
-                                                    offset: const Offset(25, 0.0),
+                                                    offset:
+                                                        const Offset(25, 0.0),
                                                     child: AutoSizeText(
-                                                      "${recurringRide?.rating.toString()}.0",
-                                                      textAlign: TextAlign.right,
+                                                        recurringRide?.rating == null?"0.0" :"${recurringRide?.rating.toString()}.0",
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       maxLines: 1,
                                                       minFontSize: Dimensions
                                                           .FONT_SIZE_DEFAULT,
                                                       maxFontSize: Dimensions
                                                           .FONT_SIZE_DEFAULT,
                                                       style: khulaBold.copyWith(
-                                                          color: Theme.of(context)
+                                                          color: Theme.of(
+                                                                  context)
                                                               .primaryColor),
                                                     ),
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: 12,),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
                                             Row(
                                               children: [
                                                 Text(
@@ -238,25 +296,27 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
                                                 ),
                                                 Expanded(
                                                   child: Transform.translate(
-                                                    offset: const Offset(25, 0.0),
+                                                    offset:
+                                                        const Offset(25, 0.0),
                                                     child: AutoSizeText(
-                                                      recurringRide?.comment??"",
-                                                      textAlign: TextAlign.right,
+                                                      recurringRide?.comment ??
+                                                          "No Feedback Addes",
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       maxLines: 1,
                                                       minFontSize: Dimensions
                                                           .FONT_SIZE_DEFAULT,
                                                       maxFontSize: Dimensions
                                                           .FONT_SIZE_DEFAULT,
                                                       style: khulaBold.copyWith(
-                                                          color: Theme.of(context)
+                                                          color: Theme.of(
+                                                                  context)
                                                               .primaryColor),
                                                     ),
                                                   ),
                                                 ),
                                               ],
                                             ),
-
-
                                           ],
                                         ),
                                       ),
@@ -266,33 +326,31 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
                                         children: [
                                           TextButton(
                                             onPressed: () async {
-                                              // await Navigator.pushNamed(
-                                              //   context,
-                                              //   '/Ride',
-                                              //   arguments: ScreenArgument({
-                                              //     'rideId': widget.ride.id,
-                                              //     'showRating': false,
-                                              //   }),
-                                              // ).then((value) {
-                                              //   if (widget.loadPedidos != null) {
-                                              //     widget.loadPedidos!();
-                                              //   }
-                                              // });
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                '/reviewTripHistory',
+                                                arguments: ScreenArgument({
+                                                  'previousRide': recurringRide
+                                                }),
+                                              );
                                             },
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "Book Again",
+                                                  "View Completed Ride",
                                                   style: khulaSemiBold.merge(
                                                     TextStyle(
-                                                      color: Theme.of(context).primaryColor,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
                                                     ),
                                                   ),
                                                 ),
                                                 Icon(Icons.chevron_right,
                                                     size: 25,
-                                                    color: Theme.of(context).primaryColor),
+                                                    color: Theme.of(context)
+                                                        .primaryColor),
                                               ],
                                             ),
                                           ),
@@ -316,7 +374,9 @@ class _PreviousRideScreenState extends StateMVC<PreviousRideScreen> {
                               color: AppColors.mainBlue),
                           alignment: AlignmentDirectional.center,
                           child: Text(
-                            recurringRide?.rideStatus == "completed" ? "Completed":"",
+                            recurringRide?.rideStatus == "completed"
+                                ? "Completed"
+                                : "",
                             maxLines: 1,
                             overflow: TextOverflow.fade,
                             softWrap: false,

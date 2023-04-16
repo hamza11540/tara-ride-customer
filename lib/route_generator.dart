@@ -7,7 +7,9 @@ import 'package:driver_customer_app/src/views/screens/phone_number_screen.dart';
 import 'package:driver_customer_app/src/views/screens/previous_ride_screen.dart';
 import 'package:driver_customer_app/src/views/screens/privacy_policy_screen.dart';
 import 'package:driver_customer_app/src/views/screens/rating_screen.dart';
+import 'package:driver_customer_app/src/views/screens/review_trip_history.dart';
 import 'package:driver_customer_app/src/views/screens/ride/recent_rides_screen.dart';
+import 'package:driver_customer_app/src/views/screens/trip_history_screen.dart';
 import 'package:driver_customer_app/src/views/screens/wallet_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -84,9 +86,18 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const PreviousRideScreen(),
         );
+
+      case '/tripHistory':
+        return MaterialPageRoute(
+          builder: (context) => const TripHistory(),
+        );
       case '/ratingScreen':
         return MaterialPageRoute(
           builder: (context) =>  RatingScreen(ride: argument!.arguments['ride'],),
+        );
+        case '/reviewTripHistory':
+        return MaterialPageRoute(
+          builder: (context) =>  ReviewTripHistory(previousRideModel: argument!.arguments['previousRide'],),
         );
       case '/otpScreen':
         return MaterialPageRoute(

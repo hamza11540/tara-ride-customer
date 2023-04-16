@@ -194,10 +194,10 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                       }
                     } else if (index == 1) {
                       if (widget.onSwitchTab != null) {
-                        widget.onSwitchTab!('RecentRides');
+                        widget.onSwitchTab!('tripHistory');
                       } else {
                         Navigator.of(context)
-                            .pushReplacementNamed('/RecentRides');
+                            .pushReplacementNamed('/tripHistory');
                       }
                     }
                   },

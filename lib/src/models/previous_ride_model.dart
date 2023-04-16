@@ -38,6 +38,8 @@ class PreviousRideModel {
   List<int>? assignedDrivers;
   String? createdAt;
   String? updatedAt;
+  int? rating;
+  String? comment;
 
   PreviousRideModel(
       {this.id,
@@ -65,6 +67,8 @@ class PreviousRideModel {
       this.driverAssignedDate,
       this.assignedDrivers,
       this.createdAt,
+        this.rating,
+        this.comment,
       this.updatedAt});
 
   PreviousRideModel.fromJson(Map<String, dynamic> json) {
@@ -100,6 +104,8 @@ class PreviousRideModel {
     assignedDrivers = json['assigned_drivers'].cast<int>();
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    rating = json['rating'];
+    comment = json['comment'];
   }
 
   Map<String, dynamic> toJson() {
@@ -136,6 +142,8 @@ class PreviousRideModel {
     data['assigned_drivers'] = this.assignedDrivers;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['rating'] = this.rating;
+    data['comment'] = this.comment;
     return data;
   }
 }
