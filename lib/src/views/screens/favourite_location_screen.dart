@@ -31,59 +31,62 @@ class _FavouriteLocationScreenState extends StateMVC<FavouriteLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.mainBlue,
-        iconTheme: IconThemeData(
-          color: Colors.white, //change your color here
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: AppBar(
+          backgroundColor: AppColors.mainBlue,
+          iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
+          elevation: 1,
+          shadowColor: Theme.of(context).primaryColor,
+          title: Text("Favourite Location"),
+          centerTitle: true,
         ),
-        elevation: 1,
-        shadowColor: Theme.of(context).primaryColor,
-        title: Text("Favourite Location"),
-        centerTitle: true,
-      ),
-      drawer: Container(
-        width: MediaQuery.of(context).size.width * 0.75,
-        child: Drawer(
-          child: MenuWidget(),
+        drawer: Container(
+          width: MediaQuery.of(context).size.width * 0.75,
+          child: Drawer(
+            child: MenuWidget(),
+          ),
         ),
-      ),
-      body: _rideCon.loading
-          ? Center(
-              child: CircularProgressIndicator(
-              color: AppColors.mainBlue,
-            ))
-          : ListView.builder(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+        body: _rideCon.loading
+            ? Center(
+                child: CircularProgressIndicator(
+                color: AppColors.mainBlue,
+              ))
+            : ListView.builder(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 16),
 
-              shrinkWrap: true,
-              itemCount: _rideCon.favLocation?.data?.length,
-              itemBuilder: (BuildContext context, int index) {
-                final favLocaction = _rideCon.favLocation?.data![index];
-                return Container(
-                  height: 80,
-                  width: MediaQuery.of(context).size.width,
-                  child: SingleChildScrollView(
-                    child: Card(
-                      color: Colors.grey.shade200,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      elevation: 0,
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: AppColors.mainBlue,
-                          child: Icon(
-                            Icons.location_on,
-                            color: Colors.white,
+                shrinkWrap: true,
+                itemCount: _rideCon.favLocation?.data?.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final favLocaction = _rideCon.favLocation?.data![index];
+                  return Container(
+                    height: 80,
+                    width: MediaQuery.of(context).size.width,
+                    child: SingleChildScrollView(
+                      child: Card(
+                        color: Colors.grey.shade200,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        elevation: 0,
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: AppColors.mainBlue,
+                            child: Icon(
+                              Icons.location_on,
+                              color: Colors.white,
+                            ),
                           ),
+                          title: Text(favLocaction?.address ?? "Lahore, Pakistan"),
                         ),
-                        title: Text(favLocaction?.address ?? "Lahore, Pakistan"),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+      ),
     );
   }
 }

@@ -122,6 +122,7 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                         color: Theme.of(context).primaryColor),
                   ),
                 ),
+                    if (currentUser.value.auth)
                     Padding(
                   padding:
                       const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
@@ -142,6 +143,7 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                     ],
                   ),
                 ),
+                    if (currentUser.value.auth)
                     Padding(
                       padding:
                       const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
@@ -506,12 +508,12 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                           }
                         },
                         leading: Icon(Icons.login,
-                            color: Theme.of(context).primaryColor),
+                            color: Colors.white),
                         title: Text(
                           AppLocalizations.of(context)!.login,
                           style: rubikMedium.copyWith(
                               fontSize: Dimensions.FONT_SIZE_LARGE,
-                              color: Theme.of(context).primaryColor),
+                              color: Colors.white),
                         ),
                       ),
                     ],

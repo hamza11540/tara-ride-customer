@@ -100,6 +100,8 @@ class RidePendingWidget extends StatelessWidget {
                             Spacer(),
                             InkWell(
                               onTap: () {
+
+                            print(ride.id);
                                 showDialog(
                                   context: context,
                                   builder: (context) =>
