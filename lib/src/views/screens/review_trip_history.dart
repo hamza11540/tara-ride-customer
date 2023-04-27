@@ -372,7 +372,7 @@ class _ReviewTripHistoryState extends StateMVC<ReviewTripHistory> {
                           AutoSizeText(
                             widget.previousRideModel.rating == null
                                 ? "Not Rated"
-                                : "${widget.previousRideModel.toString()}.0",
+                                : "${widget.previousRideModel.rating.toString()}.0",
                             minFontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
